@@ -1,0 +1,130 @@
+﻿==================================================
+ERP SISTEMA
+LOGIN ARCHITECTURE v1.0
+==================================================
+
+OBJETIVO
+--------------------------------------------------
+
+Implementar autenticación segura antes de construir
+Usuarios, Roles y Permisos.
+
+La autenticación será la base del ERP.
+
+==================================================
+FASE 1
+==================================================
+
+[✓] Login
+[✓] AuthProvider
+[✓] PrivateRoute
+[✓] Dashboard
+
+==================================================
+ESTRUCTURA FRONTEND
+==================================================
+
+src
+│
+├── adapters
+│   └── googleSheetsAdapter.js
+│
+├── app
+│   ├── guards
+│   │   ├── PrivateRoute.jsx
+│   │   └── PublicRoute.jsx
+│   │
+│   ├── providers
+│   │   └── AuthProvider.jsx
+│   │
+│   └── router
+│       └── AppRouter.jsx
+│
+├── modules
+│   ├── auth
+│   │   ├── components
+│   │   ├── hooks
+│   │   ├── pages
+│   │   ├── services
+│   │   └── utils
+│   │
+│   └── dashboard
+│
+└── services
+    └── api
+
+==================================================
+ESTRUCTURA SERVER
+==================================================
+
+server
+│
+├── package.json
+├── .env
+│
+└── src
+    │
+    ├── app.js
+    │
+    ├── routes
+    │   └── auth.routes.js
+    │
+    ├── controllers
+    │   └── auth.controller.js
+    │
+    ├── services
+    │   └── auth.service.js
+    │
+    ├── adapters
+    │   └── googleSheetsAdapter.js
+    │
+    └── config
+
+==================================================
+FLUJO LOGIN
+==================================================
+
+Usuario
+    │
+    ▼
+AuthForm
+    │
+    ▼
+useAuth
+    │
+    ▼
+AuthProvider
+    │
+    ▼
+authService
+    │
+    ▼
+POST /api/auth/login
+    │
+    ▼
+auth.routes.js
+    │
+    ▼
+auth.controller.js
+    │
+    ▼
+auth.service.js
+    │
+    ▼
+googleSheetsAdapter.js
+    │
+    ▼
+Google Sheets
+    │
+    ▼
+Usuarios
+    │
+    ▼
+Respuesta
+    │
+    ▼
+Dashboard
+
+==================================================
+FIN DOCUMENTO
+==================================================

@@ -16,27 +16,36 @@ export default function AuthForm() {
   const [password, setPassword] = useState("");
 
   const navigate = useNavigate();
-  const { login } = useAuth();
+  const {
+      login,
+      loading,
+    } = useAuth();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
   e.preventDefault();
-  console.log("🔥 SUBMIT FUNCIONA");
 
-  if (usuario !== "admin" || password !== "123456") {
-    alert("Usuario o contraseña incorrectos");
-    return;
+  console.log("CLICK LOGIN");
+  console.log("USUARIO:", usuario);
+  console.log("PASSWORD:", password);
+
+  try {
+    console.log("ANTES DE LOGIN");
+
+    const response = await login({
+      username: usuario,
+      password,
+    });
+
+    console.log("DESPUES DE LOGIN");
+    console.log(response);
+
+    navigate("/dashboard");
+
+  } catch (error) {
+    console.error("ERROR LOGIN");
+    console.error(error);
+    alert(error.message);
   }
-
-  console.log("✅ LOGIN OK");
-
-  login({
-    username: usuario,
-    role: "ADMIN",
-  });
-
-  console.log("➡️ NAVEGANDO");
-
-  navigate("/dashboard");
 };
 
   return (
@@ -128,8 +137,13 @@ export default function AuthForm() {
 
         {/* BUTTON */}
         <div className="mt-8">
-          <AuthButton type="submit">
-            Ingresar al sistema
+          <AuthButton
+            type="submit"
+            disabled={loading}
+          >
+            {loading
+              ? "Ingresando..."
+              : "Ingresar al sistema"}
           </AuthButton>
         </div>
 

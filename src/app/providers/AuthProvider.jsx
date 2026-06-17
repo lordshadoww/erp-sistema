@@ -1,5 +1,6 @@
 //src/app/providers/AuthProvider.jsx
 
+
 import {
   createContext,
   useContext,
@@ -7,55 +8,89 @@ import {
   useState,
 } from "react";
 
-console.log("AuthProvider activo");
+import {
+  loginRequest,
+} from "@/modules/auth/services/authService";
 
-const AuthContext = createContext();
+import {
+  getUser,
+  saveUser,
+  clearSession,
 
-export function AuthProvider({ children }) {
+  saveToken,
+  getToken,
+} from "@/modules/auth/utils/authStorage";
 
-  const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
+const AuthContext =
+  createContext();
+
+export function AuthProvider({
+  children,
+}) {
+  const [user, setUser] =
+    useState(null);
+
+  const [loading, setLoading] =
+    useState(true);
+
+  // ======================
+  // LOAD SESSION
+  // ======================
 
   useEffect(() => {
+    try {
+      const token =
+        getToken();
 
-  try {
+      const storedUser =
+        getUser();
 
-    const session =
-      localStorage.getItem("erp_session");
+      if (token && storedUser) {
+        setUser(storedUser);
+      }
+    } catch (error) {
+      console.error(error);
 
-    if (session) {
-      setUser(JSON.parse(session));
+      clearSession();
+    } finally {
+      setLoading(false);
     }
+  }, []);
 
-  } catch (error) {
+  // ======================
+  // LOGIN
+  // ======================
 
-    console.error(error);
+  const login = async (
+  credentials
+) => {
+  try {
+    setLoading(true);
 
-    localStorage.removeItem(
-      "erp_session"
-    );
+    const response =
+      await loginRequest(
+        credentials
+      );
 
-  } finally {
+        saveToken(response.token);
 
-    setLoading(false);
+        saveUser(response.user);
 
-  }
+        setUser(response.user);
 
-}, []);
+        return response;
 
-  const login = (userData) => {
+      } finally {
+        setLoading(false);
+      }
+    };
 
-    localStorage.setItem(
-      "erp_session",
-      JSON.stringify(userData)
-    );
-
-    setUser(userData);
-  };
+  // ======================
+  // LOGOUT
+  // ======================
 
   const logout = () => {
-
-    localStorage.removeItem("erp_session");
+    clearSession();
 
     setUser(null);
   };
@@ -64,10 +99,15 @@ export function AuthProvider({ children }) {
     <AuthContext.Provider
       value={{
         user,
-        login,
-        logout,
+
         loading,
-        isAuthenticated: !!user,
+
+        login,
+
+        logout,
+
+        isAuthenticated:
+          !!user,
       }}
     >
       {children}

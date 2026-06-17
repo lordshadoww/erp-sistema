@@ -1,10 +1,10 @@
-// src/app/guards/PrivateRoute.jsx
+// src/app/guards/PublicRoute.jsx
 
 import { Navigate } from "react-router-dom";
 
 import useAuth from "@/modules/auth/hooks/useAuth";
 
-export default function PrivateRoute({
+export default function PublicRoute({
   children,
 }) {
 
@@ -15,16 +15,16 @@ export default function PrivateRoute({
 
   if (loading) {
     return (
-      <div className="p-10 text-white">
-        Cargando...
+      <div className="flex min-h-screen items-center justify-center bg-slate-950 text-white">
+        Cargando sesión...
       </div>
     );
   }
 
-  if (!isAuthenticated) {
+  if (isAuthenticated) {
     return (
       <Navigate
-        to="/login"
+        to="/dashboard"
         replace
       />
     );
