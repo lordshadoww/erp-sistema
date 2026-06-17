@@ -31,3 +31,7 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Estructura generada
+estructura.txt
+LOGIN-ARCHITECTURE.txt
