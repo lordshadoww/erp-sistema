@@ -17,6 +17,8 @@ dist-ssr
 # environment
 .env
 .env.*
+server/.env
+!.env.example
 
 # local
 *.local

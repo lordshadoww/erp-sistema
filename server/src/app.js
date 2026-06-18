@@ -1,4 +1,7 @@
 //src\app.js
+import dotenv from "dotenv";
+dotenv.config();
+
 import express from "express";
 import cors from "cors";
 
@@ -9,6 +12,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+// RUTAS
 app.use("/api/auth", authRoutes);
 
 const PORT = 3001;
