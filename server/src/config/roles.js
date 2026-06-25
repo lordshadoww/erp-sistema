@@ -1,0 +1,14 @@
+// server/src/config/roles.js
+
+export const ROLES = {
+  ADMIN: "ROL001",
+  SUPERVISOR: "ROL002",
+  ALMACENERO: "ROL003",
+  TECNICO: "ROL004",
+  VENDEDOR: "ROL005",
+  INVITADO: "ROL006",
+  GERENTE: "ROL007",
+  CONTADOR: "ROL008",
+  RRHH: "ROL009",
+  AUDITOR: "ROL010",
+};

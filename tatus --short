@@ -1,0 +1,9 @@
+ server/package-lock.json                   | 863 [32m++++++++++++++++++++++++++++[m[31m-[m
+ server/package.json                        |   5 [32m+[m[31m-[m
+ server/src/adapters/googleSheetsAdapter.js | 247 [32m+++++++++[m
+ server/src/app.js                          |  16 [32m+[m[31m-[m
+ server/src/controllers/auth.controller.js  | 116 [32m+++[m[31m-[m
+ server/src/middlewares/auth.middleware.js  |  23 [32m+[m[31m-[m
+ server/src/routes/auth.routes.js           |  61 [32m+[m[31m-[m
+ server/src/services/auth.service.js        | 236 [32m+++++++[m[31m-[m
+ 8 files changed, 1522 insertions(+), 45 deletions(-)
